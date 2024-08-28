@@ -1,7 +1,9 @@
+--# selene: allow(incorrect_standard_library_use)
+
 local numberUtil = require("numberUtil") :: any
 local process = require("@lune/process") :: any
 local roblox = require("@lune/roblox") :: any
-local config = require("../../config")
+local config = require("../../config") :: any
 
 local function setupBuildInfoScript(updatedRemotePlace)
 	for serviceName, scriptType in config.buildInfoScriptInfo.parents do

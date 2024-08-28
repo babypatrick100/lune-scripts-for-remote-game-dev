@@ -9,10 +9,8 @@ local buildLuneScriptInfo = require("../other/buildLuneScriptInfo")
 local readRemotePlace = require("readRemotePlace")
 local roblox = require("@lune/roblox")
 local tableUtil = require("../other/tableUtil")
-local task = require("@lune/task")
 local writeToRemotePlace = require("../other/writeToRemotePlace")
 
-local SHOULD_SETUP_BUILD_INFO_SCRIPT = true
 local BLACKLISTED_SERVICES_CHILDREN = {
 	Workspace = { "Camera" },
 }
@@ -60,19 +58,12 @@ local function publishRemotePlace(publishType)
 			config.remotePlaceId
 		)
 	)
-	-- roblox.readPlaceFile(config.localProjectFileDir)
 	local localPlace = roblox.deserializePlace(fs.readFile(config.localProjectFileDir))
-
-	if not localPlace then
-		error(
-			"[publishRemotePlace.luau]: Local place %s was not found!",
-			config.localProjectFileDir
-		)
+	if localPlace == nil then
+		error("[publishRemotePlace.luau]: Local place %s was not found!", config.localProjectFileDir)
 	end
 
-	print(
-		string.format("[publishRemotePlace.luau]: Reading remote place %d..", config.remotePlaceId)
-	)
+	print(string.format("[publishRemotePlace.luau]: Reading remote place %d..", config.remotePlaceId))
 
 	local updatedRemotePlace = readRemotePlace(config.remotePlaceId)
 
@@ -126,16 +117,11 @@ local function publishRemotePlace(publishType)
 		assetUtil.copyAssetsToPlace(localPlace, updatedRemotePlace, config.scriptAssets)
 	end
 
-	if SHOULD_SETUP_BUILD_INFO_SCRIPT then
+	if config.buildInfoScriptInfo.shouldSetup then
 		buildLuneScriptInfo(updatedRemotePlace)
 	end
 
-	writeToRemotePlace(
-		updatedRemotePlace,
-		config.remotePlaceId,
-		config.remoteUniverseId,
-		config.cloudApiPublishingKey
-	)
+	writeToRemotePlace(updatedRemotePlace, config.remotePlaceId, config.remoteUniverseId, config.cloudApiPublishingKey)
 end
 
 return publishRemotePlace
