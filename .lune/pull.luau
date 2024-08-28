@@ -1,9 +1,9 @@
 --!nocheck
 --!nolint
 --# selene: allow(incorrect_standard_library_use)
-local buildPlace = require("./util/main/buildPlace")
+local buildPlace = require("./utilities/remotePlace/buildPlace")
 local config = require("config")
-local processUtil = require("./util/other/processUtil")
+local processUtil = require("./utilities/other/processUtil")
 
 buildPlace(config.remotePlaceId)
 print(

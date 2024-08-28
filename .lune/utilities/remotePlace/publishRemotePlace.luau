@@ -5,7 +5,7 @@ local assetUtil = require("../other/assetUtil")
 local config = require("../../config")
 local enums = require("../../enums")
 local fs = require("@lune/fs")
-local luneBuildInfoScriptUtil = require("../other/luneBuildInfoScriptUtil")
+local buildLuneScriptInfo = require("../other/buildLuneScriptInfo")
 local readRemotePlace = require("readRemotePlace")
 local roblox = require("@lune/roblox")
 local tableUtil = require("../other/tableUtil")
@@ -93,7 +93,7 @@ local function publishRemotePlace(publishType)
 		end
 	end
 
-	if publishType == enums.publishType.entireLocalPlace then
+	if publishType == enums.PublishType.EntireLocalPlace then
 		for _, service in config.services do
 			local localService = localPlace:GetService(service)
 
@@ -127,7 +127,7 @@ local function publishRemotePlace(publishType)
 	end
 
 	if SHOULD_SETUP_BUILD_INFO_SCRIPT then
-		luneBuildInfoScriptUtil.setup(updatedRemotePlace)
+		buildLuneScriptInfo(updatedRemotePlace)
 	end
 
 	writeToRemotePlace(

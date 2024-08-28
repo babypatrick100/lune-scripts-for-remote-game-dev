@@ -1,21 +1,29 @@
---# selene: allow(incorrect_standard_library_use)
-local luneBuildInfoScriptUtil = require("./util/other/luneBuildInfoScriptUtil") :: any
+local BUILD_INFO_SCRIPT_NAME = "buildInfo"
 
 local config = {
-	localProjectFileDir = "",
-	localProjectAssetsDir = "project",
-	remoteUniverseId = 0,
-	remotePlaceId = 0,
-	cloudApiPublishingKey = "",
+	buildInfoScriptInfo = {
+		name = BUILD_INFO_SCRIPT_NAME,
+		parents = {
+			ServerScriptService = "Script",
+			ReplicatedFirst = "LocalScript",
+		},
+	},
+
+	-- To be setup by the user:
+	localProjectFileDir = nil,
+	localProjectAssetsDir = nil,
+	remoteUniverseId = nil,
+	remotePlaceId = nil,
+	cloudApiPublishingKey = nil,
 
 	scriptAssets = {
 		-- Where our scripts are stored - this is used internally to detect "unknown"
 		-- scripts and not sync them in.
-		ServerScriptService = { "earlyStartup", luneBuildInfoScriptUtil.buildInfoScriptName },
+		ServerScriptService = { "earlyStartup", BUILD_INFO_SCRIPT_NAME },
 		ServerStorage = { "server", "serverPackages" },
 		ReplicatedStorage = { "shared", "client", "sharedPackages" },
-		StarterPlayer = { StarterPlayerScripts = { "lateStartup" } },
-		ReplicatedFirst = { "client", luneBuildInfoScriptUtil.buildInfoScriptName },
+		StarterPlayer = { StarterPlayerScripts = { "lateStartup", "packetprofiler" } },
+		ReplicatedFirst = { "client", BUILD_INFO_SCRIPT_NAME },
 	},
 
 	services = {

@@ -1,13 +1,12 @@
 --!nocheck
 --!nolint
 --# selene: allow(incorrect_standard_library_use)
-local processUtil = require("./util/other/processUtil")
-local wallyInstall = require("./util/main/wallyInstall")
+local processUtil = require("./utilities/other/processUtil")
+local wallyInstall = require("./utilities/other/wallyInstall")
 
 local PACKAGES_DIRS = { "Packages", "ServerPackages" }
 
-print("[update.luau]: This will install all wally packages and update rojo related info.")
-
+print("[update.luau]: NOTE: This will install all wally packages and update rojo related info.")
 print("[update.luau]: Updating project..")
 
 wallyInstall()

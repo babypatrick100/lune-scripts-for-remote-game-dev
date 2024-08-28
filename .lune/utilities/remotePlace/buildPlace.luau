@@ -13,7 +13,8 @@ local BLACKLISTED_ASSETS = tableUtil.merge(
 	-- Rojo..
 	config.scriptAssets,
 	{
-		-- Roblox allows duplicates of camera instances which is not what we want..
+		-- For some reason duplicates of camera instances are created during build,
+		-- which is not what we want.
 		Workspace = { "Camera" },
 	}
 )
