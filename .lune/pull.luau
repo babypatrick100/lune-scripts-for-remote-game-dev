@@ -5,9 +5,7 @@ local buildPlace = require("./utilities/remotePlace/buildPlace")
 local config = require("config")
 local processUtil = require("./utilities/other/processUtil")
 
+print("[pull.luau]: Building from remote place..")
 buildPlace(config.remotePlaceId)
-print(
-	string.format("[pull.luau]: Building %s from the project folder..", config.localProjectFileDir)
-)
 processUtil.spawn("rojo", { "build", "build.project.json", "--output", config.localProjectFileDir })
-print(string.format("[pull.luau]: Built %s!", config.localProjectFileDir))
+print(string.format("[pull.luau]: ✅ Successfully built %s from remote place!", config.localProjectFileDir))
