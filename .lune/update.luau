@@ -6,6 +6,8 @@ local wallyInstall = require("./utilities/other/wallyInstall")
 
 local PACKAGES_DIRS = { "Packages", "ServerPackages" }
 
+local clockBefore = os.clock()
+
 print("[update.luau]: Installing wally packages..")
 wallyInstall()
 print("[update.luau]: Generating new Rojo sourcemap..")
@@ -21,4 +23,4 @@ for _, dir in PACKAGES_DIRS do
 	processUtil.spawn("wally-package-types", { "--sourcemap", "sourcemap.json", string.format("%s/", dir) })
 end
 
-print("[update.luau]: ✅ Project successfully updated!")
+print(string.format("[update.luau]: ✅ Project successfully updated! (%.2fs)", os.clock() - clockBefore))

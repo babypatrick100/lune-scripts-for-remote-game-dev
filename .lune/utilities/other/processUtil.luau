@@ -7,7 +7,7 @@ function processUtil.spawn(...)
 	local response = process.spawn(...)
 
 	if response.code ~= 0 then
-		warn(response.stderr)
+		error(response.stderr)
 	end
 end
 
