@@ -1,7 +1,6 @@
 --!nolint
 --!nocheck
 --# selene: allow(incorrect_standard_library_use)
-local authUtil = require("../other/authUtil")
 local net = require("@lune/net")
 local roblox = require("@lune/roblox")
 local serde = require("@lune/serde")
@@ -9,7 +8,10 @@ local serde = require("@lune/serde")
 local ROBLOX_PLACE_ASSSET_DELIEVERY_URL = "https://assetdelivery.roblox.com/v2/assetId/%d"
 
 local function readRemotePlace(remotePlaceId)
-	local cookie = authUtil.cookie()
+	local cookie = roblox.getAuthCookie()
+	if cookie == nil then
+		return false, "Failed to get Roblox auth cookie!"
+	end
 
 	-- 1. Send a request to the asset delivery API, which will respond with cdn
 	-- download link(s)

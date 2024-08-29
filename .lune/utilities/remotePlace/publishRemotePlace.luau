@@ -66,12 +66,7 @@ local function publishRemotePlace(publishType)
 
 		for _, child in localService:GetDescendants() do
 			if child:IsA("Script") and not scriptIsKnown(localService, child) then
-				print(
-					string.format(
-						"[publishRemotePlace.luau]: ⚠️ Found unknown script [%s], ignoring it.",
-						child:GetFullName()
-					)
-				)
+				print(string.format("    ⚠️ Found unknown script [%s], ignoring it.", child:GetFullName()))
 
 				child:Destroy()
 			end

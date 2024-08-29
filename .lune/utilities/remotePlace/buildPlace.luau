@@ -26,14 +26,11 @@ local function buildPlace(remotePlaceId)
 
 	fs.writeDir(config.localProjectAssetsDir)
 
-	print(
-		string.format(
-			"[buildPlace.luau]: Building local place from remote place %d..",
-			remotePlaceId
-		)
-	)
+	local remotePlaceSuccessfullyRead, remotePlace = readRemotePlace(remotePlaceId)
+	if not remotePlaceSuccessfullyRead then
+		return remotePlaceSuccessfullyRead, remotePlace
+	end
 
-	local remotePlace = readRemotePlace(remotePlaceId)
 	assetUtil.destroyBlacklistedAssets(remotePlace, BLACKLISTED_ASSETS)
 
 	for _, directory in config.services do
@@ -42,7 +39,7 @@ local function buildPlace(remotePlaceId)
 		fs.writeFile(desiredPath, serializedModel)
 	end
 
-	print(string.format('[buildProject.luau]: Built place to "%s"', config.localProjectAssetsDir))
+	return true, nil
 end
 
 return buildPlace
