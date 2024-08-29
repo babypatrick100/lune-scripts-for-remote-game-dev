@@ -1,7 +1,8 @@
 --# selene: allow(incorrect_standard_library_use)
 local BUILD_INFO_SCRIPT_NAME = "buildInfo"
+local CUSTOM_CONFIG_FILE_DIR = "../dev/remoteGameDevConfig"
 
-local config = {
+local CONFIG_TEMPLATE = {
 	buildInfoScriptInfo = {
 		name = BUILD_INFO_SCRIPT_NAME,
 		parents = {
@@ -11,7 +12,6 @@ local config = {
 		shouldSetup = true,
 	},
 
-	-- To be setup by the user:
 	localProjectFileDir = nil,
 	localProjectAssetsDir = nil,
 	remoteUniverseId = nil,
@@ -44,4 +44,24 @@ local config = {
 	},
 }
 
-return table.freeze(config)
+local wasSuccessful, projectSpecificConfig = pcall(function()
+	return require(CUSTOM_CONFIG_FILE_DIR)
+end)
+
+if wasSuccessful then
+	for key in CONFIG_TEMPLATE do
+		if projectSpecificConfig[key] == nil then
+			print(string.format('⚠️ Member "%s" was found in config file!', key))
+		end
+	end
+
+	for key in projectSpecificConfig do
+		if CONFIG_TEMPLATE[key] == nil then
+			print(string.format('⚠️ Unknown member "%s" was found in config file!', key))
+		end
+	end
+
+	return projectSpecificConfig
+else
+	error(string.format("Expected config file `remoteGameDevConfig.luau` in `dev` folder at root."))
+end
