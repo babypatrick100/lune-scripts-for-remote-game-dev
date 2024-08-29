@@ -15,7 +15,11 @@ local publishType = nil
 if args[1] ~= nil and args[1]:lower() == PUBLISH_LOCAL_PLACE_SERVICES_ARG then
 	local confirmed = stdio.prompt(
 		"confirm",
-		"[publish.luau]: ⚠️  This will sync in your entire local file to the actual game on Roblox, are you sure you want to do this?"
+		string.format(
+			'[publish.luau]: ⚠️  This will sync in your entire local file "%s" to the actual remote game [%d] on Roblox, are you sure you want to do this?',
+			config.localProjectFileDir,
+			config.remotePlaceId
+		)
 	)
 
 	if not confirmed then
