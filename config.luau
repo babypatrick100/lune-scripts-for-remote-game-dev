@@ -1,14 +1,10 @@
 --# selene: allow(incorrect_standard_library_use)
-local BUILD_INFO_SCRIPT_NAME = "buildInfo"
 local CUSTOM_CONFIG_FILE_DIR = "../dev/remoteGameDevConfig"
 
 local CONFIG_TEMPLATE = {
 	buildInfoScriptInfo = {
-		name = BUILD_INFO_SCRIPT_NAME,
-		parents = {
-			ServerScriptService = "Script",
-			ReplicatedFirst = "LocalScript",
-		},
+		name = "buildInfo",
+		parents = {},
 		shouldSetup = true,
 	},
 
@@ -18,30 +14,8 @@ local CONFIG_TEMPLATE = {
 	remotePlaceId = nil,
 	cloudApiPublishingKey = nil,
 
-	scriptAssets = {
-		ServerScriptService = { "earlyStartup", BUILD_INFO_SCRIPT_NAME },
-		ServerStorage = { "server", "serverPackages" },
-		ReplicatedStorage = { "shared", "client", "sharedPackages" },
-		StarterPlayer = { StarterPlayerScripts = { "lateStartup", "packetprofiler" } },
-		ReplicatedFirst = { "client", BUILD_INFO_SCRIPT_NAME },
-	},
-	services = {
-		"ServerStorage",
-		"ReplicatedFirst",
-		"ReplicatedStorage",
-		"ServerScriptService",
-		"Workspace",
-		"StarterPack",
-		"StarterPlayer",
-		"Lighting",
-		"TextChatService",
-		"Teams",
-		"StarterGui",
-		"SoundService",
-		"Players",
-		"MaterialService",
-		"Chat",
-	},
+	scriptAssets = {},
+	services = {},
 }
 
 local wasSuccessful, projectSpecificConfig = pcall(function()
