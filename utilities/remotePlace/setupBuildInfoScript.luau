@@ -1,6 +1,6 @@
 --# selene: allow(incorrect_standard_library_use)
 
-local numberUtil = require("numberUtil") :: any
+local numberUtil = require("../other/numberUtil") :: any
 local process = require("@lune/process") :: any
 local roblox = require("@lune/roblox") :: any
 local config = require("../../config") :: any
