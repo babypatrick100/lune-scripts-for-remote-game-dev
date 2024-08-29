@@ -8,11 +8,11 @@ local CONFIG_TEMPLATE = {
 		shouldSetup = true,
 	},
 
-	localProjectFileDir = nil,
-	localProjectAssetsDir = nil,
-	remoteUniverseId = nil,
-	remotePlaceId = nil,
-	cloudApiPublishingKey = nil,
+	localProjectFileDir = "",
+	localProjectAssetsDir = "",
+	remoteUniverseId = "",
+	remotePlaceId = "",
+	cloudApiPublishingKey = "",
 
 	scriptAssets = {},
 	services = {},
