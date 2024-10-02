@@ -8,7 +8,7 @@ local config = require("../../config") :: any
 local function setupBuildInfoScript(updatedRemotePlace)
 	for serviceName, scriptType in config.buildInfoScriptInfo.parents do
 		local buildInfoScript = roblox.Instance.new(scriptType)
-		buildInfoScript.Name = config.buildInfoScriptInfo.buildInfoScriptName
+		buildInfoScript.Name = config.buildInfoScriptInfo.name
 		local formattedOsDate = os.date("!*t", os.time())
 		buildInfoScript.Source = string.format(
 			'warn(string.format("[lune]: Build %s %s %d [%d:%s %s] (from OS: %s)")) script:Destroy()',
@@ -23,8 +23,8 @@ local function setupBuildInfoScript(updatedRemotePlace)
 
 		local parentService = updatedRemotePlace:GetService(serviceName)
 
-		if parentService:FindFirstChild(config.buildInfoScriptInfo.buildInfoScriptName) then
-			parentService[config.buildInfoScriptInfo.buildInfoScriptName]:Destroy()
+		if parentService:FindFirstChild(config.buildInfoScriptInfo.name) then
+			parentService[config.buildInfoScriptInfo.name]:Destroy()
 		end
 
 		buildInfoScript.Parent = parentService
