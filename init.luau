@@ -1,7 +1,7 @@
 --!nocheck
 --!nolint
 local processUtil = require("./utilities/other/processUtil")
-local wallyInstall = require("./utilities/remotePlace/wallyInstall")
+local wallyInstall = require("./utilities/other/wallyInstall")
 
 local PACKAGES_DIRS = { "Packages", "ServerPackages" }
 
